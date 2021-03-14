@@ -24,31 +24,33 @@ htmlPage = '''<!DOCTYPE html>
 </head>
 <body>'''
 file = ''
+
+# open data file and save data to variable
 for i in os.listdir(os.getcwd()):
-    print(i)
     if i.split('.')[0] in url.split('/')[-1].split('.'):
-        print(i.split('.')[0], url.split('/')[-1].split('.'))
         file = i
-print(file)
 if file == '':
     print('Data file not found, make sure you provided the correct link and you ran get_data.py on the same link.')
 with open(file, 'r') as f:
     products = json.load(f)
 
+# find all products matching the search terms
 matchingProducts = []
 
 for i in range(2, len(products)):
     fullMatch = True
     for term in searchTerms:
-        if re.search(r'\d+-\d+\w+', term):
+        if re.search(r'\d+\.*\d+-\d+\.*\d*[A-Z]+', term):
             iRange = [int(y) for y in re.findall(r'\d+', term)]
-            iRange[1] += 1
             letter = re.findall(r'[A-Z]+', term)[0]
             found = False
-            for num in range(*iRange):
-                if f"{num}{letter}" in products[i]['description'].split():
-                    found = True
-                    break
+
+            for item in products[i]['description'].split():
+                if re.search(fr'\d+\.*\d*{letter}+', item):
+                    number = float(re.findall(r'\d+\.*\d*', item)[0])
+                    if iRange[0] <= number <= iRange[1]:
+                        found = True
+
             if not found:
                 fullMatch = False
         elif term not in products[i]['description'].split():
@@ -66,8 +68,6 @@ while not productsSorted:
     productsSorted = True
     for i in range(len(matchingProducts)-1):
         if float(matchingProducts[i]['price'].split('$')[1]) > float(matchingProducts[i+1]['price'].split('$')[1]):
-            print(float(matchingProducts[i]['price'].split('$')[1]), float(matchingProducts[i+1]['price'].split('$')[1]))
-            print('stuck here?')
             productsSorted = False
             hold = matchingProducts[i]
             matchingProducts[i] = matchingProducts[i+1]
