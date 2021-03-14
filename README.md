@@ -11,3 +11,5 @@
 2. Run `get_data.py`, it will create a json file with the info on all the components from the website search you performed. (it might take a little while to gather all the information)
 
 3. `find&display.py` has a list variable called `searchTerms`, remove all the search terms/keywords in there and put in your own. The program can search for a range of numerical values for a specific property. The syntax demonstrated on an example is: `1-5V`. 1 being the minimum numerical value, 5 the maximum one, and V for volts being the property.
+
+4. Run `find&display.py`, it will create an html file which you can then open in your browser and look at the search results
