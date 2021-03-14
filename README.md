@@ -1,12 +1,12 @@
 # webscraping for component-hk
 
-[component-hk](https://component-hk.net) has very attractive prices but its website has no parametric search. These couple of programs are made with the aim of making the search easier.
+[component-hk](https://component-hk.net) has very attractive prices but its website offers no parametric search. These couple of programs are made with the aim of making the search easier.
 
-`get_data.py` gathers info on every producrt it can find from a product category and `find&display.py` can then use this information to perform a parametric search on it
+`get_data.py` gathers info on every product it can find from a product category and `find&display.py` can then use this information to perform a parametric search on it
 
 ## Usage
 
-1. Both `get_data.py` and `find&display.py` files have an `url` variable inside the code. Set that variable to the link you get after going into the product indexes and selecting a category.
+1. Both `get_data.py` and `find&display.py` files have an `url` variable inside the code. Set that variable to the link you get after going into `products index` in the top menu and selecting a category.
 
 2. Run `get_data.py`, it will create a json file with the info on all the components it can find. (it might take a little while to gather all the information)
 
