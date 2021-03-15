@@ -11,14 +11,57 @@ htmlPage = '''<!DOCTYPE html>
         .product {
             display: flex;
             flex-direction: row;
-            transition: background-color .15s ease-in-out
+            width: 800px;
+            margin: 0 auto;
+            border-radius: 7px;
         }
+        
+        @media (max-width: 800px) {
+            .product {
+                width: 100%
+            }
+        }
+        
         .product:hover {
             background-color: #ededed;
         }
+        
         .item {
             display: flex;
             flex-direction: column;
+        }
+        
+        .details {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .img {
+            margin-left: 3px;
+            margin-right: 5px;
+            margin-top: 3px;
+            height: 80px;
+            width: 80px;
+            border-radius: 7px;
+        }
+        
+        .part {
+            overflow-wrap: anywhere;
+            margin-right: 5px;
+        }
+        
+        .supplier {
+            overflow-wrap: anywhere;
+        }
+        
+        .common {
+            font-size: 13px;
+            width: 160px;
+        }
+        
+        .description {
+            position: relative;
+            top: 15%;
         }
     </style>
 </head>
@@ -79,12 +122,19 @@ for product in matchingProducts:
 
 # create html string
 for product in matchingProducts:
-    htmlPage += '<div class="product">'
-    htmlPage += f'''<a href="{products[0]}{product['url']}"><img src="{products[0]}{product['image']}" width="75%" ></a>
-    <div class="item">
-    <div><a href="{products[0]}{product['supplierUrl']}">{product['supplier']}</a> | {product['part#']} | {product['stock']} | {product['price']}</div>
-    <div>{product['description']}</div></div>'''
-    htmlPage += '</div>'
+    htmlPage += f'''
+    <div class="product">
+        <a href="{products[0]}{product['url']}"><img class="img" src="{products[0]}{product['image']}" width="75%" ></a>
+        <div class="item">
+            <div class="details">
+                <div class="part common"><a href="{products[0]}{product['url']}">{product['part#']}</a></div>
+                <div class="supplier common"><a href="{products[0]}{product['supplierUrl']}">{product['supplier']}</a></div>
+                <div class="stock common">{product['stock']}</div>
+                <div class="price common">{product['price']}</div>
+            </div>
+            <div class="description">{product['description']}</div>
+        </div>
+    </div><br>'''
 htmlPage += '</body></html>'
 
 with open(f"{url.split('/')[-1].split('.')[0]}|{'|'.join(searchTerms)}.html", 'w') as f:
