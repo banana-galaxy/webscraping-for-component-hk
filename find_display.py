@@ -100,7 +100,6 @@ for i in range(2, len(products)):
 
             for item in re.findall(fr'\d+\.*\d*\s*{letter}', products[i]['description']):
                 if re.search(fr'\d+\.*\d*\s*{letter}', item):
-                    print("got here")
                     number = float(re.findall(r'\d+\.*\d*', item)[0])
                     if iRange[0] <= number <= iRange[1]:
                         found = True
@@ -151,7 +150,6 @@ htmlPage += '</body></html>'
 for i in range(len(searchTerms)):
     if re.search(r'\s*', term):
         searchTerms[i] = searchTerms[i].replace(' ', '-')
-print(searchTerms)
 
 with open(f"{url.split('/')[-1].split('.')[0]}_{'_'.join(searchTerms)}.html", 'w') as f:
     f.write(htmlPage)
