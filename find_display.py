@@ -1,7 +1,11 @@
+#!/usr/bin/python3
+
 import json, os, re
 
-url = 'https://www.component-hk.net/products/Capacitors/Aluminum-Polymer-Capacitors.html'
-searchTerms = ['10-45V', '100UF']
+with open('config.json', 'r') as f:
+    config = json.load(f)
+url = config['url']
+searchTerms = config['search terms']
 
 htmlPage = '''<!DOCTYPE html>
 <html lang="en">
@@ -89,20 +93,20 @@ matchingProducts = []
 for i in range(2, len(products)):
     fullMatch = True
     for term in searchTerms:
-        if re.search(r'\d+\.*\d+-\d+\.*\d*[A-Z]+', term):
+        if re.search(r'\d+\.*\d*-\d+\.*\d*[A-Z]+', term):
             iRange = [int(y) for y in re.findall(r'\d+', term)]
             letter = re.findall(r'[A-Z]+', term)[0]
             found = False
 
             for item in products[i]['description'].split():
-                if re.search(fr'\d+\.*\d*{letter}+', item):
+                if re.search(fr'\d+\.*\d*{letter}', item):
                     number = float(re.findall(r'\d+\.*\d*', item)[0])
                     if iRange[0] <= number <= iRange[1]:
                         found = True
 
             if not found:
                 fullMatch = False
-        elif term not in products[i]['description'].split():
+        elif not re.search(term, products[i]['description']):  # term not in products[i]['description'].split():
             fullMatch = False
     if fullMatch:
         matchingProducts.append(products[i])
@@ -143,5 +147,5 @@ for product in matchingProducts:
     </div><br>'''
 htmlPage += '</body></html>'
 
-with open(f"{url.split('/')[-1].split('.')[0]}|{'|'.join(searchTerms)}.html", 'w') as f:
+with open(f"{url.split('/')[-1].split('.')[0]}_{'_'.join(searchTerms)}.html", 'w') as f:
     f.write(htmlPage)
