@@ -12,28 +12,9 @@ htmlPage = '''<!DOCTYPE html>
             display: flex;
             flex-direction: row;
             width: 800px;
+            height: 86px;
             margin: 0 auto;
             border-radius: 7px;
-        }
-        
-        @media (max-width: 800px) {
-            .product {
-                width: 100%
-            }
-        }
-        
-        .product:hover {
-            background-color: #ededed;
-        }
-        
-        .item {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .details {
-            display: flex;
-            flex-direction: row;
         }
         
         .img {
@@ -45,6 +26,36 @@ htmlPage = '''<!DOCTYPE html>
             border-radius: 7px;
         }
         
+        .common {            
+            width: 160px;
+        }
+        
+        @media (max-width: 800px) {
+            .product {
+                width: 100%;
+            }
+            .common {
+                width: 25%;
+            }
+        }
+        
+        .product:hover {
+            background-color: #ededed;
+        }
+        
+        .item {
+            display: flex;
+            flex-direction: column;
+            width: 80%
+        }
+        
+        .details {
+            display: flex;
+            flex-direction: row;
+            margin-top: 5px;
+            font-size: 13px;
+        }
+        
         .part {
             overflow-wrap: anywhere;
             margin-right: 5px;
@@ -52,11 +63,6 @@ htmlPage = '''<!DOCTYPE html>
         
         .supplier {
             overflow-wrap: anywhere;
-        }
-        
-        .common {
-            font-size: 13px;
-            width: 160px;
         }
         
         .description {
