@@ -134,11 +134,11 @@ for product in matchingProducts:
 for product in matchingProducts:
     htmlPage += f'''
     <div class="product">
-        <a href="{products[0]}{product['url']}"><img class="img" src="{products[0]}{product['image']}" width="75%" ></a>
+        <a href="{products[0]}{product['url']}" target="_blank"><img class="img" src="{products[0]}{product['image']}" width="75%" ></a>
         <div class="item">
             <div class="details">
-                <div class="part common"><a href="{products[0]}{product['url']}">{product['part#']}</a></div>
-                <div class="supplier common"><a href="{products[0]}{product['supplierUrl']}">{product['supplier']}</a></div>
+                <div class="part common"><a href="{products[0]}{product['url']}" target="_blank">{product['part#']}</a></div>
+                <div class="supplier common"><a href="{products[0]}{product['supplierUrl']}" target="_blank">{product['supplier']}</a></div>
                 <div class="stock common">{product['stock']}</div>
                 <div class="price common">{product['price']}</div>
             </div>
