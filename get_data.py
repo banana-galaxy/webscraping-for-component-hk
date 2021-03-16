@@ -1,11 +1,17 @@
+#!/usr/bin/python3
+
 import requests
 from bs4 import BeautifulSoup
 import re
 import json
+import time
 from tqdm import tqdm
 
 baseUrl = 'https://www.component-hk.net'
-url = 'https://www.component-hk.net/products/Capacitors/Aluminum-Polymer-Capacitors.html'
+
+with open('config.json', 'r') as f:
+    config = json.load(f)
+url = config['url']
 
 products = [baseUrl, url]
 page = requests.get(url)
@@ -26,7 +32,7 @@ for i in tqdm(range(totalPages), desc='pages'):
 
     results = soup.find_all('div', class_='items clearfix')
     for result in results:
-        #print(i, result, end='\n\n')
+        #print(result, end='\n\n')
         products.append({})
         products[-1]['url'] = re.search(r"\/product\/.+\.html", str(result)).group()
         products[-1]['image'] = re.search(r'src=".+"', str(result)).group().split('"')[1]
@@ -40,6 +46,7 @@ for i in tqdm(range(totalPages), desc='pages'):
         except AttributeError:
             products[-1]['price'] = 'Unavailable'
         #print(products[-1], end='\n\n')
+    time.sleep(1)
     #print()
 
 with open(url.split('/')[-1].split('.')[0]+'.json', 'w') as f:
