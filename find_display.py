@@ -106,6 +106,10 @@ for i in range(2, len(products)):
 
             if not found:
                 fullMatch = False
+        elif re.search(r'^-[A-Za-z]*', term):
+            for item in products[i]['description'].split():
+                if ''.join(term.split('-')) == item:
+                    fullMatch = False
         elif not re.search(term, products[i]['description']):  # term not in products[i]['description'].split():
             fullMatch = False
     if fullMatch:
