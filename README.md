@@ -1,5 +1,7 @@
 # webscraping for component-hk
 
+> ⚠️ component-hk is a scam, do not send them money for anything
+
 [component-hk](https://component-hk.net) has very attractive prices but its website offers no parametric search. These couple of programs are made with the aim of making the search easier.
 
 `get_data.py` gathers info on every product it can find from a product category and `find_display.py` can then use this information to perform a parametric search on it
